@@ -4,7 +4,7 @@
 /**
  * 
  */
-module testSwing2 {
+module Librairie {
 	requires java.desktop;
 	requires java.sql;
 }
