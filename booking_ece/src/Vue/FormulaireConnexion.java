@@ -1,4 +1,4 @@
-package view;
+package Vue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +8,7 @@ import java.io.*;
 
 // Panel contenant le formulaire de connexion.
 
-public class FormulaireConnexion extends JPanel {
+public class FormulaireConnexion extends pageStruct {
 	
 	private JLabel label_image_logo;
 	private JLabel label_introduction;
@@ -26,35 +26,30 @@ public class FormulaireConnexion extends JPanel {
 	
 	private BufferedImage image1;
 	
-	public FormulaireConnexion() {
-		
+	public FormulaireConnexion( navigation nav , String name ) {
 		// Initialisation de la classe Mère et des attributs de base.
-		super();
+		super( nav,name);
 		setLayout( new GridBagLayout() );
 		this.couleur_ECE = new Color(0,115,123);
 		this.police_ecriture_1 = new Font("Cascadia Code",Font.PLAIN,30);
 		// Lecture de l'image par l'application.
-		try {
-			this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
-		} catch (IOException IOE1) {
-			IOE1.printStackTrace();
-		}
-		
-		
 		// Définition des contraintes de base pour tous les composants du panel.
 		this.contraintes = new GridBagConstraints();
 		this.contraintes.ipadx=10;
 		this.contraintes.ipady=10;
 		this.contraintes.insets = new Insets(10,10,10,10);
-		
 		// Label contenant le logo de l'application.
-		this.label_image_logo = new JLabel(new ImageIcon(this.image1));
-		this.contraintes.fill = GridBagConstraints.HORIZONTAL;
-		this.contraintes.gridwidth = 2;
-		this.contraintes.gridx = 1;
-		this.contraintes.gridy = 1;
-		this.add(this.label_image_logo,this.contraintes);
-		
+		try {
+			this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
+			this.label_image_logo = new JLabel(new ImageIcon(this.image1));
+			this.contraintes.fill = GridBagConstraints.HORIZONTAL;
+			this.contraintes.gridwidth = 2;
+			this.contraintes.gridx = 1;
+			this.contraintes.gridy = 1;
+			this.add(this.label_image_logo,this.contraintes);
+		} catch (IOException IOE1) {
+			IOE1.printStackTrace();
+		}
 		// Label d'introduction. contient un message amène.
 		this.label_introduction = new JLabel("Connectez-vous à Booking.ECE !");
 		this.label_introduction.setFont(this.police_ecriture_1);
@@ -114,9 +109,28 @@ public class FormulaireConnexion extends JPanel {
 		this.bouton_enregistrement.setBackground(Color.WHITE);
 		this.bouton_enregistrement.setForeground(this.couleur_ECE);
 		this.add(this.bouton_enregistrement,this.contraintes);
-		
-		
-		setVisible(true);
+		// Ajout d'un écouteur sur le bouton de connexion.
+		this.bouton_connexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO : Ajouter le code pour se connecter à Booking.ece.
+                try {
+                    moveToPage("accueil");
+                } catch (PageNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+		});
+		this.bouton_enregistrement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO : Ajouter le code pour passer au formulaire d'enregistrement.
+				try {
+					moveToPage("enregistrement");
+				} catch (PageNotFoundException ex) {
+					throw new RuntimeException(ex);
+				}
+			}
+		});
+		//setVisible(true);
 	}
 	
 	// Code pour faire une démo de la vue.
@@ -125,7 +139,7 @@ public class FormulaireConnexion extends JPanel {
 		JFrame frame_test = new JFrame("Demonstration VUE Formulaire Connexion");
 		frame_test.setSize(960,710);
 		frame_test.setResizable(false);
-		FormulaireConnexion LF1 = new FormulaireConnexion();
+		FormulaireConnexion LF1 = new FormulaireConnexion( new navigation(), "Formulaire de Connexion" );
 		frame_test.add(LF1);
 		frame_test.setVisible(true);
 	}

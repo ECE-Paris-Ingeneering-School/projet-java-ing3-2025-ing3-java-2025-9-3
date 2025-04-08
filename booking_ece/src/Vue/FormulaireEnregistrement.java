@@ -1,4 +1,4 @@
-package view;
+package Vue;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,7 +6,7 @@ import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
 
-public class FormulaireEnregistrement extends JPanel {
+public class FormulaireEnregistrement extends pageStruct {
 		
 		private GridBagConstraints GBC1;
 		private Color couleur_ECE;
@@ -33,18 +33,13 @@ public class FormulaireEnregistrement extends JPanel {
 		private JButton bouton_vers_connexion;
 		
 		// Constructeur de la classe FormulaireEnregistrement
-		public FormulaireEnregistrement() {
-			super();
+		public FormulaireEnregistrement( navigation nav , String name) {
+			super(nav , name);
 			this.setLayout(new GridBagLayout());
 			this.couleur_ECE = new Color(0,115,123);
 			this.police_ecriture_1 = new Font("Cascadia Code",Font.PLAIN,30);
 			// Lecture de l'image par l'application.
-			try {
-				this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
-			} catch (IOException IOE1) {
-				IOE1.printStackTrace();
-			}
-			
+
 			// Les contraites du gridBagLayout qui seront modifiés pour chaque widget.
 			this.GBC1 = new GridBagConstraints();
 			this.GBC1.ipadx=10;
@@ -52,12 +47,18 @@ public class FormulaireEnregistrement extends JPanel {
 			this.GBC1.insets = new Insets(10,10,10,10);
 			
 			// Le logo de l'application.
-			this.label_logo_application = new JLabel(new ImageIcon(this.image1));
-			this.GBC1.gridx = 1;
-			this.GBC1.gridy = 1;
-			this.GBC1.gridwidth = 2;
-			this.GBC1.fill = GridBagConstraints.HORIZONTAL;
-			this.add(this.label_logo_application,this.GBC1);
+			try {
+				this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
+				this.label_logo_application = new JLabel(new ImageIcon(this.image1));
+				this.GBC1.gridx = 1;
+				this.GBC1.gridy = 1;
+				this.GBC1.gridwidth = 2;
+				this.GBC1.fill = GridBagConstraints.HORIZONTAL;
+				this.add(this.label_logo_application,this.GBC1);
+			} catch (IOException IOE1) {
+				IOE1.printStackTrace();
+			}
+
 			
 			// Le label d'introduction pour inviter l'utilisateur à saisir ses informations
 			this.label_introduction = new JLabel("Inscrivez-vous à Booking.ECE !");
@@ -155,16 +156,35 @@ public class FormulaireEnregistrement extends JPanel {
 			this.bouton_vers_connexion.setBackground(this.couleur_ECE);
 			this.bouton_vers_connexion.setForeground(Color.WHITE);
 			this.add(this.bouton_vers_connexion,this.GBC1);
-			
+			this.bouton_vers_connexion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO : Ajouter le code pour se connecter à Booking.ece.
+					try {
+						moveToPage("connexion");
+					} catch (PageNotFoundException ex) {
+						throw new RuntimeException(ex);
+					}
+				}
+			});
+			this.bouton_enregistrement.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO : Ajouter le code pour passer au formulaire d'enregistrement.
+					try {
+						moveToPage("accueil");
+					} catch (PageNotFoundException ex) {
+						throw new RuntimeException(ex);
+					}
+				}
+			});
 		}
-		
+		/*
 		public static void main( String args[] ) {
 			JFrame frame_test_1 = new JFrame("Démonstration formulaire enregistrement : ");
 			frame_test_1.setSize(960,710);
 			frame_test_1.setResizable(false);
-			FormulaireEnregistrement FE1 = new FormulaireEnregistrement();
+			FormulaireEnregistrement FE1 = new FormulaireEnregistrement( new navigation() , "enregistrement" );
 			frame_test_1.add(FE1);
 			frame_test_1.setVisible(true);
-		}
+		}*/
 		
 }

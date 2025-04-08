@@ -7,17 +7,23 @@ public class filtre extends pageStruct {
 
     public filtre(navigation nav, String name) {
         super(nav, name);
+        setLayout(new BorderLayout());
+        setSize(600, 600);
+        setName(name);
+        setBackground(Color.LIGHT_GRAY);
+        JLabel label = new JLabel(name, SwingConstants.CENTER);
+        label.setFont(new Font("Arial", Font.BOLD, 24));
+        add(label, BorderLayout.CENTER);
     }
+    JPanel filterPanel = new JPanel();
 
     @Override
-    public void addToolBar() {
+    public JToolBar addToolBar() {
         // Appeler la méthode de la classe parente pour configurer la barre d'outils de base
         super.addToolBar();
 
         // Créer un panneau pour les filtres avec GridLayout
-        JPanel filterPanel = new JPanel();
         filterPanel.setLayout(new GridLayout(14, 1)); // 14 lignes, 1 colonne
-
         // Ajouter des options de filtrage avec des bordures pour l'espacement
         filterPanel.add(createCheckBoxWithBorder("Moins de 3 km"));
         filterPanel.add(createCheckBoxWithBorder("Moins de 5 km"));
@@ -44,6 +50,23 @@ public class filtre extends pageStruct {
 
         // Ajouter la barre d'outils à la partie OUEST du BorderLayout
         add(toolBar, BorderLayout.WEST);
+        return null;
+    }
+
+    @Override
+    public JPanel addNavBar() {
+        JPanel navBar = super.addNavBar();
+        JButton Connexion = new JButton("connexion");
+        Connexion.addActionListener(e -> {
+            try {
+                moveToPage("connexion");
+            } catch (PageNotFoundException ex) {
+                nav.erreur404();
+            }
+        });
+        navBar.add(Connexion);
+        navBar.setVisible(true);
+        return navBar;
     }
 
     private JCheckBox createCheckBoxWithBorder(String label) {

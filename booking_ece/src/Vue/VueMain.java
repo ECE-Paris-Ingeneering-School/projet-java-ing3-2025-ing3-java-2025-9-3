@@ -10,11 +10,12 @@ import java.awt.event.*;
 public class VueMain {
     public static void main(String[] args) {
         navigation nav = new navigation();
-        filtre ft = new filtre(nav, "accueil");
-        ft.addNavBar();
+        FormulaireEnregistrement FE1 = new FormulaireEnregistrement(  nav , "enregistrement" );
+        FormulaireConnexion FC1 = new FormulaireConnexion( nav , "connexion" );
+        filtre ft = new filtre( nav , "accueil" );
         ft.addToolBar();
+        ft.addNavBar();
+        nav.showCard("accueil");
         nav.SetVisible(true);
-
-
     }
 }
