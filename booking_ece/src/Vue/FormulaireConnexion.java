@@ -28,7 +28,7 @@ public class FormulaireConnexion extends pageStruct {
 	
 	public FormulaireConnexion( navigation nav , String name ) {
 		// Initialisation de la classe Mère et des attributs de base.
-		super( nav,name);
+		super(nav,name);
 		setLayout( new GridBagLayout() );
 		this.couleur_ECE = new Color(0,115,123);
 		this.police_ecriture_1 = new Font("Cascadia Code",Font.PLAIN,30);
@@ -132,6 +132,24 @@ public class FormulaireConnexion extends pageStruct {
 		});
 		//setVisible(true);
 	}
+	@Override
+	public JPanel addNavBar() {
+		JPanel navBar = super.addNavBar();
+		try {
+			// Définir les contraintes pour la barre de navigation
+			contraintes.gridx = 0; // Position horizontale
+			contraintes.gridy = 0; // Position verticale
+			contraintes.gridwidth = GridBagConstraints.REMAINDER; // Occuper toute la largeur
+			contraintes.fill = GridBagConstraints.HORIZONTAL; // Étendre horizontalement
+			contraintes.insets = new Insets(0, 0, 10, 0); // Marges autour de la barre de navigation
+			add(navBar, contraintes);
+			System.out.println("Barre de navigation ajoutée avec succès.");
+		} catch (Exception e) {
+			System.out.println("Erreur avec GridBagConstraints : " + e.getMessage());
+			e.printStackTrace();
+		}
+		return navBar;
+	}
 	
 	// Code pour faire une démo de la vue.
 	// Ce code n'est pas lié à un controlleur : aucune interaction est faisable avec les boutons affichés !
@@ -143,5 +161,4 @@ public class FormulaireConnexion extends pageStruct {
 		frame_test.add(LF1);
 		frame_test.setVisible(true);
 	}
-	
 }

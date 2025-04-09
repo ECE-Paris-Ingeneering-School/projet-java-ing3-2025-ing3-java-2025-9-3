@@ -7,56 +7,55 @@ public class filtre extends pageStruct {
 
     public filtre(navigation nav, String name) {
         super(nav, name);
-        setLayout(new BorderLayout());
-        setSize(600, 600);
-        setName(name);
-        setBackground(Color.LIGHT_GRAY);
-        JLabel label = new JLabel(name, SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.BOLD, 24));
-        add(label, BorderLayout.CENTER);
+        initPage(name);
     }
     JPanel filterPanel = new JPanel();
-
     @Override
     public JToolBar addToolBar() {
-        // Appeler la méthode de la classe parente pour configurer la barre d'outils de base
-        super.addToolBar();
-
-        // Créer un panneau pour les filtres avec GridLayout
-        filterPanel.setLayout(new GridLayout(14, 1)); // 14 lignes, 1 colonne
-        // Ajouter des options de filtrage avec des bordures pour l'espacement
-        filterPanel.add(createCheckBoxWithBorder("Moins de 3 km"));
-        filterPanel.add(createCheckBoxWithBorder("Moins de 5 km"));
-        filterPanel.add(createCheckBoxWithBorder("Paiement en ligne"));
-        filterPanel.add(createCheckBoxWithBorder("PayPal"));
-        filterPanel.add(createCheckBoxWithBorder("Pour passer un bon moment"));
-        filterPanel.add(createCheckBoxWithBorder("Parcours de golf (à moins de 3 km)"));
-        filterPanel.add(createCheckBoxWithBorder("Restaurant"));
-        filterPanel.add(createCheckBoxWithBorder("Équitation"));
-        filterPanel.add(createCheckBoxWithBorder("Plage"));
-        filterPanel.add(createCheckBoxWithBorder("Vue"));
-        filterPanel.add(createCheckBoxWithBorder("Les animaux sont les bienvenus"));
-        filterPanel.add(createCheckBoxWithBorder("Toutes les offres"));
-        filterPanel.add(createCheckBoxWithBorder("Réception 24h/24"));
-        filterPanel.add(createCheckBoxWithBorder("Ménage quotidien 24h/24"));
-
-
-
-        // Ajouter le panneau de filtres à la barre d'outils
+        // Créer la barre d'outils
         JToolBar toolBar = new JToolBar();
         toolBar.setOrientation(SwingConstants.VERTICAL);
         toolBar.add(new JLabel("Filtres de recherche"));
-        toolBar.add(filterPanel);
 
-        // Ajouter la barre d'outils à la partie OUEST du BorderLayout
-        add(toolBar, BorderLayout.WEST);
-        return null;
+        // Ajouter des composants à la barre d'outils
+        toolBar.add(createCheckBoxWithBorder("Moins de 3 km"));
+        toolBar.add(createCheckBoxWithBorder("Moins de 5 km"));
+        toolBar.add(createCheckBoxWithBorder("Paiement en ligne"));
+        toolBar.add(createCheckBoxWithBorder("PayPal"));
+        toolBar.add(createCheckBoxWithBorder("Pour passer un bon moment"));
+        toolBar.add(createCheckBoxWithBorder("Parcours de golf (à moins de 3 km)"));
+        toolBar.add(createCheckBoxWithBorder("Restaurant"));
+        toolBar.add(createCheckBoxWithBorder("Équitation"));
+        toolBar.add(createCheckBoxWithBorder("Plage"));
+        toolBar.add(createCheckBoxWithBorder("Vue"));
+        toolBar.add(createCheckBoxWithBorder("Les animaux sont les bienvenus"));
+        toolBar.add(createCheckBoxWithBorder("Toutes les offres"));
+        toolBar.add(createCheckBoxWithBorder("Réception 24h/24"));
+        toolBar.add(createCheckBoxWithBorder("Ménage quotidien 24h/24"));
+
+        // Ajouter un JScrollPane pour permettre le défilement
+        JScrollPane scrollPane = new JScrollPane(toolBar);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        // configurer la taille du JScrollPane
+        scrollPane.setPreferredSize(new Dimension(200, 600));
+        UIManager.put("ScrollBar.thumb", new Color(0, 115, 123)); // Couleur de la poignée
+        UIManager.put("ScrollBar.track", Color.LIGHT_GRAY);       // Couleur de la piste
+        UIManager.put("ScrollBar.width", 3);                    // Largeur de la barre
+        SwingUtilities.updateComponentTreeUI(scrollPane);
+        // Ajouter le JScrollPane au conteneur principal
+        add(scrollPane, BorderLayout.WEST);
+
+        return toolBar;
     }
 
     @Override
     public JPanel addNavBar() {
         JPanel navBar = super.addNavBar();
-        JButton Connexion = new JButton("connexion");
+        JButton Connexion = new JButton("Connexion");
+        Connexion.setBackground(new Color(0,115,123));
+        Connexion.setForeground(Color.WHITE);
+        Connexion.setFont(new Font("Cascadia Code",Font.PLAIN,14));
         Connexion.addActionListener(e -> {
             try {
                 moveToPage("connexion");

@@ -177,6 +177,27 @@ public class FormulaireEnregistrement extends pageStruct {
 				}
 			});
 		}
+		// Méthode pour ajouter une barre de navigation à la page
+		@Override
+		public JPanel addNavBar() {
+			JPanel navBar = super.addNavBar();
+			try {
+				// Définir les contraintes pour la barre de navigation
+				GBC1.gridx = 0; // Position horizontale
+				GBC1.gridy = 0; // Position verticale
+				GBC1.gridwidth = GridBagConstraints.REMAINDER; // Occuper toute la largeur
+				GBC1.fill = GridBagConstraints.HORIZONTAL; // Étendre horizontalement
+				GBC1.insets = new Insets(0, 0, 10, 0); // Marges autour de la barre de navigation
+
+				// Ajouter la barre de navigation au layout
+				add(navBar, GBC1);
+				System.out.println("Barre de navigation ajoutée avec succès.");
+			} catch (Exception e) {
+				System.out.println("Erreur avec GridBagConstraints : " + e.getMessage());
+				e.printStackTrace();
+			}
+			return navBar;
+		}
 		/*
 		public static void main( String args[] ) {
 			JFrame frame_test_1 = new JFrame("Démonstration formulaire enregistrement : ");

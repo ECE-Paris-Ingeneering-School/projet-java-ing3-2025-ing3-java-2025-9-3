@@ -13,6 +13,8 @@ public class VueMain {
         FormulaireEnregistrement FE1 = new FormulaireEnregistrement(  nav , "enregistrement" );
         FormulaireConnexion FC1 = new FormulaireConnexion( nav , "connexion" );
         filtre ft = new filtre( nav , "accueil" );
+        FC1.addNavBar();
+        FE1.addNavBar();
         ft.addToolBar();
         ft.addNavBar();
         nav.showCard("accueil");
