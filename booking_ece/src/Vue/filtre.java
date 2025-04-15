@@ -121,6 +121,10 @@ public class filtre extends pageStruct {
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         annoncesScroll.getVerticalScrollBar().setUnitIncrement(16);
         annoncesScroll.setBorder(null);
+        UIManager.put("ScrollBar.thumb", new Color(0, 115, 123));
+        UIManager.put("ScrollBar.track", Color.LIGHT_GRAY);
+        UIManager.put("ScrollBar.width", 7);
+        SwingUtilities.updateComponentTreeUI( annoncesScroll);
 
         add(annoncesScroll, BorderLayout.CENTER);
     }
@@ -129,6 +133,7 @@ public class filtre extends pageStruct {
      * Simulation de récupération d'annonces depuis une base de données.
      */
     private List<Annonce> getAnnoncesFromDatabase() {
+    //TODO : Remplacer par la récupération réelle des données
         List<Annonce> data = new ArrayList<>();
         data.add(new Annonce("Hôtel Arconte **** - Situation géographique 9,3 - Prix : 1761 €", "hotel1.png"));
         data.add(new Annonce("SLS Barcelone ***** - Vue mer, Piscine sur le toit - Prix : 1847 €", null));
