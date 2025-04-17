@@ -5,8 +5,9 @@ import java.awt.event.*;
 import java.awt.image.*;
 import javax.imageio.*;
 import java.io.*;
+import Controler.FormulaireEnregistrement_controler;
 
-public class FormulaireEnregistrement extends pageStruct {
+public class FormulaireEnregistrement extends JPanel {
 		
 		private GridBagConstraints GBC1;
 		private Color couleur_ECE;
@@ -29,17 +30,22 @@ public class FormulaireEnregistrement extends pageStruct {
 		private JRadioButton bouton_radio_categorie_normal;
 		private JRadioButton bouton_radio_categorie_administrateur;
 		
-		private JButton bouton_enregistrement;
-		private JButton bouton_vers_connexion;
+		protected JButton bouton_enregistrement;
+		protected JButton bouton_vers_connexion;
 		
 		// Constructeur de la classe FormulaireEnregistrement
-		public FormulaireEnregistrement( navigation nav , String name) {
-			super(nav , name);
+		public FormulaireEnregistrement() {
+			super();
 			this.setLayout(new GridBagLayout());
 			this.couleur_ECE = new Color(0,115,123);
 			this.police_ecriture_1 = new Font("Cascadia Code",Font.PLAIN,30);
 			// Lecture de l'image par l'application.
-
+			try {
+				this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
+			} catch (IOException IOE1) {
+				IOE1.printStackTrace();
+			}
+			
 			// Les contraites du gridBagLayout qui seront modifiés pour chaque widget.
 			this.GBC1 = new GridBagConstraints();
 			this.GBC1.ipadx=10;
@@ -47,18 +53,12 @@ public class FormulaireEnregistrement extends pageStruct {
 			this.GBC1.insets = new Insets(10,10,10,10);
 			
 			// Le logo de l'application.
-			try {
-				this.image1 = ImageIO.read( new File("C:/Users/antoi/OneDrive/Bureau/Projet JAVA Booking wtf/LOGO_DE_OUF.png") );
-				this.label_logo_application = new JLabel(new ImageIcon(this.image1));
-				this.GBC1.gridx = 1;
-				this.GBC1.gridy = 1;
-				this.GBC1.gridwidth = 2;
-				this.GBC1.fill = GridBagConstraints.HORIZONTAL;
-				this.add(this.label_logo_application,this.GBC1);
-			} catch (IOException IOE1) {
-				IOE1.printStackTrace();
-			}
-
+			this.label_logo_application = new JLabel(new ImageIcon(this.image1));
+			this.GBC1.gridx = 1;
+			this.GBC1.gridy = 1;
+			this.GBC1.gridwidth = 2;
+			this.GBC1.fill = GridBagConstraints.HORIZONTAL;
+			this.add(this.label_logo_application,this.GBC1);
 			
 			// Le label d'introduction pour inviter l'utilisateur à saisir ses informations
 			this.label_introduction = new JLabel("Inscrivez-vous à Booking.ECE !");
@@ -156,56 +156,17 @@ public class FormulaireEnregistrement extends pageStruct {
 			this.bouton_vers_connexion.setBackground(this.couleur_ECE);
 			this.bouton_vers_connexion.setForeground(Color.WHITE);
 			this.add(this.bouton_vers_connexion,this.GBC1);
-			this.bouton_vers_connexion.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// TODO : Ajouter le code pour se connecter à Booking.ece.
-					try {
-						moveToPage("connexion");
-					} catch (PageNotFoundException ex) {
-						throw new RuntimeException(ex);
-					}
-				}
-			});
-			this.bouton_enregistrement.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					// TODO : Ajouter le code pour passer au formulaire d'enregistrement.
-					try {
-						moveToPage("accueil");
-					} catch (PageNotFoundException ex) {
-						throw new RuntimeException(ex);
-					}
-				}
-			});
+			
 		}
-		// Méthode pour ajouter une barre de navigation à la page
-		@Override
-		public JPanel addNavBar() {
-			JPanel navBar = super.addNavBar();
-			try {
-				// Définir les contraintes pour la barre de navigation
-				GBC1.gridx = 0; // Position horizontale
-				GBC1.gridy = 0; // Position verticale
-				GBC1.gridwidth = GridBagConstraints.REMAINDER; // Occuper toute la largeur
-				GBC1.fill = GridBagConstraints.HORIZONTAL; // Étendre horizontalement
-				GBC1.insets = new Insets(0, 0, 10, 0); // Marges autour de la barre de navigation
-
-				// Ajouter la barre de navigation au layout
-				add(navBar, GBC1);
-				System.out.println("Barre de navigation ajoutée avec succès.");
-			} catch (Exception e) {
-				System.out.println("Erreur avec GridBagConstraints : " + e.getMessage());
-				e.printStackTrace();
-			}
-			return navBar;
-		}
-		/*
+		
 		public static void main( String args[] ) {
 			JFrame frame_test_1 = new JFrame("Démonstration formulaire enregistrement : ");
 			frame_test_1.setSize(960,710);
 			frame_test_1.setResizable(false);
-			FormulaireEnregistrement FE1 = new FormulaireEnregistrement( new navigation() , "enregistrement" );
+			FormulaireEnregistrement FE1 = new FormulaireEnregistrement();
 			frame_test_1.add(FE1);
+			frame_test_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame_test_1.setVisible(true);
-		}*/
+		}
 		
 }
