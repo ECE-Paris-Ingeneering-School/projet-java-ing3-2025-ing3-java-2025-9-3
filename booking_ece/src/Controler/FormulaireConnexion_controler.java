@@ -4,7 +4,6 @@ import java.awt.event.*;
 import java.awt.*;
 import view.FormulaireConnexion;
 import view.MasterPanel;
-
 public class FormulaireConnexion_controler extends FormulaireConnexion implements ActionListener {
 	
 	public FormulaireConnexion_controler() {
